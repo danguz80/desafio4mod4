@@ -5,6 +5,7 @@ import CardPizza from './CardPizza';
 const Home = () => {
   const [pizzas, setPizzas] = useState([]);
 
+/* Tuve q usar el puerto 4000 por que el 5000 me daba error */  
   const obtenerInfo = async () => {
     let respuesta = await fetch("http://localhost:4000/api/pizzas");
     let data = await respuesta.json();
