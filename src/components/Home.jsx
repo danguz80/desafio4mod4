@@ -5,12 +5,21 @@ import CardPizza from './CardPizza';
 const Home = () => {
   const [pizzas, setPizzas] = useState([]);
 
+  const obtenerInfo = async () => {
+    let respuesta = await fetch("http://localhost:4000/api/pizzas");
+    let data = await respuesta.json();
+    setPizzas(data)
+  }
   useEffect(() => {
-    fetch('http://localhost:4000/api/pizzas')
-      .then(response => response.json())
-      .then(data => setPizzas(data))
-      .catch(error => console.error('Error fetching pizzas:', error));
-  }, []);
+    obtenerInfo()
+  }, [])
+
+  /*  useEffect(() => {
+      fetch('http://localhost:4000/api/pizzas')
+        .then(response => response.json())
+        .then(data => setPizzas(data))
+        .catch(error => console.error('Error fetching pizzas:', error));
+    }, []); */
 
   return (
     <div>
@@ -18,11 +27,11 @@ const Home = () => {
       <div className="d-flex justify-content-around mt-4">
         {pizzas.map((pizza) => (
           <CardPizza
-            key={pizza.id}
-            name={pizza.name}
-            price={pizza.price}
-            ingredients={pizza.ingredients}
-            img={pizza.img}
+            key={pizza?.id}
+            name={pizza?.name}
+            price={pizza?.price}
+            ingredients={pizza?.ingredients}
+            img={pizza?.img}
           />
         ))}
       </div>
